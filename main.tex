@@ -1,0 +1,138 @@
+% ------------------------------------------------------
+% 文档信息
+% Type = Bachelor 本科论文模板
+% Type = Master 硕士论文模板
+% Type = Doctor 博士论文模板
+\documentclass[Type=Doctor]{neudissertation}
+% ------------------------------------------------------
+
+% ------------------------------------------------------
+% 基础信息
+\classification{}
+\serialno{}
+\udc{}
+\studentid{20221234}
+\campusname{软件学院}
+\zhmajor{软件工程}
+\enmajor{Software Engineer}
+\zhtitle{东北大学论文模板标题}
+\entitle{Dissertation Template of Northeastern University}
+\zhauthor{王五}
+\enauthor{Wang Wu}
+\zhthesisdate{20xx年6月}
+\enthesisdate{June 20xx}
+% ------------------------------------------------------
+
+% ------------------------------------------------------
+% 导师1
+\zhsupervisor{李四}
+\zhsupervisortitle{教授}
+\zhsupervisorwork{东北大学软件学院}
+\ensupervisor{Associate Professor Li Si}
+% ------------------------------------------------------
+
+% ------------------------------------------------------
+% 导师2
+% 若没有导师2，可以注释掉下列变量
+\zhsupervisortwo{张三}
+\zhsupervisortwotitle{教授}
+\zhsupervisortwowork{东北大学软件学院}
+\ensupervisortwo{Associate Professor Zhang San}
+% ------------------------------------------------------
+
+% ------------------------------------------------------
+% 仅硕博需要下列变量
+\zhdegreetype{硕士}
+\zhmajortype{工学}
+\zhsubmissiondate{20xx年6月}
+\zhdefensedate{20xx年6月}
+\zhdegreegivendate{20xx年6月}
+\zhdefensechairmen{主席}
+\zhreviewers{评阅人1\quad 评阅人2 }
+% ------------------------------------------------------
+
+% 用于伪代码
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{makecell}
+
+% 用于tikz绘图基本设置
+\usepackage{tikzbase}
+
+% 导入随机文本
+\usepackage{lipsum}
+\usepackage{zhlipsum}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\input{declaration}
+
+\zhabstractmatter
+
+\input{zhabstract}
+
+\enabstractmatter
+
+\input{enabstract}
+
+\tableofcontentsmatter
+
+\tableofcontents
+
+\mainmatter
+
+\input{chapter0-guide}
+
+\input{chapter1}
+
+\input{chapter2}
+
+\input{chapter3}
+
+\input{chapter4}
+
+\input{chapter5}
+
+\input{chapter6}
+
+\backmatter
+
+{
+
+  \addcontentsline{toc}{chapter}{参考文献}
+  \bibliographystyle{gbt7714-numerical}
+  \bibliography{references}
+}
+
+\input{thanks}
+
+% -----------------------------------------------------------------------
+% 仅硕博
+%\chapter{攻读学位期间科研及发表论文情况}
+%
+%{
+%   \noindent \sanhao \bf 科研情况:
+%}
+%
+%
+%\begin{enumerate}[label*=项目\arabic*：, leftmargin=*, labelindent=\parindent, itemindent=6em]
+%  \item
+%    \item
+%\end{enumerate}
+%
+%
+%{
+%    \noindent \sanhao \bf 论文发表情况:
+%}
+%
+%\begin{enumerate}[label*=发表\arabic*：, leftmargin=*, labelindent=\parindent, itemindent=6em]
+%  \item Gerald Tesauro, et al. A hybrid reinforcement learning approach to autonomic resource allocation[C]. IEEE International Conference on Autonomic Computing. 2006.
+%    \item
+%\end{enumerate}
+% -----------------------------------------------------------------------
+
+\begin{ 
+\end{document}
