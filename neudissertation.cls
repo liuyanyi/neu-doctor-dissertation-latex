@@ -400,83 +400,85 @@
 }
 
 % Covers.
+% Cover/declaration pages are placed by absolute coordinates measured from the
+% physical upper-left corner of the A4 page.  Do not put the TikZ picture into
+% an eso-pic box: the result depends on the TikZ box baseline/depth and may shift
+% or clip at the top.  Use TikZ's current-page overlay instead.
+\newcommand{\neu@pagecoordinatepicture}[1]{%
+  \begin{tikzpicture}[remember picture,overlay,x=1mm,y=-1mm]
+    \begin{scope}[shift={(current page.north west)}]
+      #1%
+    \end{scope}%
+  \end{tikzpicture}%
+}
+
 \newcommand{\makeneucovers}{%
   \begingroup
-  \pagestyle{neuempty}
-  \thispagestyle{neuempty}
-  \AddToShipoutPictureFG*{%
-    \AtPageUpperLeft{%
-      \begin{tikzpicture}[x=1mm,y=-1mm]
-    \begin{scope}
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,28.4)
-        {\song\sihao 分类号};
-      \draw[line width=0.4pt,line cap=butt] (44.9,33.5) -- (89.4,33.5);
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (96.9,28.4)
-        {\song\sihao 密级};
-      \draw[line width=0.4pt,line cap=butt] (109.0,33.5) -- (133.8,33.5);
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,40.4)
-        {\song\sihao UDC};
-      \draw[line width=0.4pt,line cap=butt] (42.8,44.5) -- (89.8,44.5);
+  \pagestyle{neuempty}%
+  \thispagestyle{neuempty}%
+  \null
+  \neu@pagecoordinatepicture{%
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,28.4)
+      {\song\sihao 分类号};
+    \draw[line width=0.4pt,line cap=butt] (44.9,33.5) -- (89.4,33.5);
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (96.9,28.4)
+      {\song\sihao 密级};
+    \draw[line width=0.4pt,line cap=butt] (109.0,33.5) -- (133.8,33.5);
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,40.4)
+      {\song\sihao UDC};
+    \draw[line width=0.4pt,line cap=butt] (42.8,44.5) -- (89.8,44.5);
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,54.9)
-        {\song\erhao \neu@spreadbox{54.3mm}{学位论文}};
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.2,72.0)
-        {\hei\xiaoer \neu@titlecn};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,54.9)
+      {\song\erhao \neu@spreadbox{54.3mm}{学位论文}};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.2,72.0)
+      {\hei\xiaoer \neu@titlecn};
 
-      \neu@coverleftline{100.2}{作者姓名：}{\neu@authorcn}
-      \neu@coverleftline{111.3}{作者学号：}{\neu@studentid}
-      \ifdefempty{\neu@cosupervisorcnraw}{%
-        \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn}
-        \node[anchor=north,inner sep=0pt,outer sep=0pt] at (103.3,133.2)
-          {\song\sihao \neu@supervisoraffiliationcn};
-      }{%
-        \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn\qquad \neu@supervisoraffiliationcn}
-        \neu@coverleftline{133.2}{}{\neu@cosupervisorcn\quad \neu@cosupervisortitlecn\qquad \neu@cosupervisoraffiliationcn}
-      }
-      \neu@coverpairline{144.2}{申请学位级别：}{\neu@degreelevel}{学科类别：}{\neu@discipline}
-      \neu@coverleftline{155.2}{学科专业名称：}{\neu@majorcn}
-      \neu@coverpairline{166.2}{论文提交日期：}{\neu@submitdate}{论文答辩日期：}{\neu@defensedate}
-      \neu@coverpairline{177.2}{学位授予日期：}{\neu@degreedate}{答辩委员会主席：}{\neu@defensechair}
+    \neu@coverleftline{100.2}{作者姓名：}{\neu@authorcn}
+    \neu@coverleftline{111.3}{作者学号：}{\neu@studentid}
+    \ifdefempty{\neu@cosupervisorcnraw}{%
+      \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn}
+      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (103.3,133.2)
+        {\song\sihao \neu@supervisoraffiliationcn};
+    }{%
+      \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn\qquad \neu@supervisoraffiliationcn}
+      \neu@coverleftline{133.2}{}{\neu@cosupervisorcn\quad \neu@cosupervisortitlecn\qquad \neu@cosupervisoraffiliationcn}
+    }
+    \neu@coverpairline{144.2}{申请学位级别：}{\neu@degreelevel}{学科类别：}{\neu@discipline}
+    \neu@coverleftline{155.2}{学科专业名称：}{\neu@majorcn}
+    \neu@coverpairline{166.2}{论文提交日期：}{\neu@submitdate}{论文答辩日期：}{\neu@defensedate}
+    \neu@coverpairline{177.2}{学位授予日期：}{\neu@degreedate}{答辩委员会主席：}{\neu@defensechair}
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,221.3)
-        {\song\sihao \neu@spreadbox{34.7mm}{东北大学}};
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,232.4)
-        {\song\sihao \neu@coverdatecn};
-    \end{scope}
-      \end{tikzpicture}%
-    }%
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,221.3)
+      {\song\sihao \neu@spreadbox{34.7mm}{东北大学}};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,232.4)
+      {\song\sihao \neu@coverdatecn};
   }%
   \null
   \cleardoublepage
-  \thispagestyle{neuempty}
-  \AddToShipoutPictureFG*{%
-    \AtPageUpperLeft{%
-      \begin{tikzpicture}[x=1mm,y=-1mm]
-    \begin{scope}
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (82.0,29.4)
-        {\sihao\bfseries A Dissertation in \neu@majoren};
+  \thispagestyle{neuempty}%
+  \null
+  \neu@pagecoordinatepicture{%
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (82.0,29.4)
+      {\sihao\bfseries A Dissertation in \neu@majoren};
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,55.9)
-        {\begin{minipage}{160mm}
-          \centering\erhao\bfseries\linespread{1.2}\selectfont \neu@titleen
-        \end{minipage}};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,55.9)
+      {\begin{minipage}{160mm}
+        \centering\erhao\bfseries\linespread{1.2}\selectfont \neu@titleen
+      \end{minipage}};
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,95.3)
-        {\sihao by \neu@authoren};
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,122.8)
-        {\sihao Supervisor: \neu@supervisoren};
-      \ifdefempty{\neu@cosupervisorenraw}{}{%
-        \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.4)
-          {\sihao Co-supervisor: \neu@cosupervisoren};
-      }
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,95.3)
+      {\sihao by \neu@authoren};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,122.8)
+      {\sihao Supervisor: \neu@supervisoren};
+    \ifdefempty{\neu@cosupervisorenraw}{}{%
+      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.4)
+        {\sihao Co-supervisor: \neu@cosupervisoren};
+    }
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,232.7)
-        {\sanhao\bfseries Northeastern University};
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,243.8)
-        {\sanhao\bfseries \neu@coverdateen};
-    \end{scope}
-      \end{tikzpicture}%
-    }%
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,232.7)
+      {\sanhao\bfseries Northeastern University};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,243.8)
+      {\sanhao\bfseries \neu@coverdateen};
   }%
   \null
   \cleardoublepage
@@ -486,7 +488,7 @@
 
 % Declaration and authorization.
 \newcommand{\neu@releasebox}[1]{%
-  #1\ \ifdefstring{\neu@onlinerelease}{#1}{$\mbox{\ooalign{$\checkmark$\cr\hidewidth$\square$\hidewidth\cr}}$}{$\square$}
+  #1\ \ifdefstring{\neu@onlinerelease}{#1}{$\mbox{\ooalign{$\checkmark$\cr\hidewidth$\square$\hidewidth\cr}}$}{$\square$}%
 }
 \newcommand{\neu@declarationsigndate}{%
   \ifdefempty{\neu@signaturedate}{\neu@coverdatecn}{\neu@signaturedate}%
@@ -504,62 +506,57 @@
 \newcommand{\neu@supervisorsignaturegraphic}{\neu@signaturegraphic{\neu@supervisorsignature}{\neu@signatureheight}}
 \newcommand{\makeneudeclaration}{%
   \cleardoublepage
-  \markboth{}{}
-  \addcontentsline{toc}{chapter}{独创性声明}
-  \thispagestyle{neunumberonly}
-  \AddToShipoutPictureFG*{%
-    \AtPageUpperLeft{%
-      \begin{tikzpicture}[x=1mm,y=-1mm]
-    \begin{scope}
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,27.3)
-        {\hei\erhao 独创性声明};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,45.1)
-        {\song\sihao\makebox[139.7mm][s]{本人声明，所呈交的学位论文是在导师的指导下完成的。论文中取}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,56.1)
-        {\song\sihao\makebox[149.5mm][s]{得的研究成果除加以标注和致谢的地方外，不包含其他人已经发表或}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,67.1)
-        {\song\sihao\makebox[149.3mm][s]{撰写过的研究成果，也不包括本人为获得其他学位而使用过的材料。与}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,78.1)
-        {\song\sihao\makebox[149.4mm][s]{我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,89.2)
-        {\song\sihao 说明并表示谢意。};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (107.6,102.9)
-        {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (106.6,117.5)
-        {\song\sihao 日\quad\quad 期：\neu@declarationsigndate};
+  \markboth{}{}%
+  \addcontentsline{toc}{chapter}{独创性声明}%
+  \thispagestyle{neunumberonly}%
+  \null
+  \neu@pagecoordinatepicture{%
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,27.3)
+      {\hei\erhao 独创性声明};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,45.1)
+      {\song\sihao\makebox[139.7mm][s]{本人声明，所呈交的学位论文是在导师的指导下完成的。论文中取}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,56.1)
+      {\song\sihao\makebox[149.5mm][s]{得的研究成果除加以标注和致谢的地方外，不包含其他人已经发表或}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,67.1)
+      {\song\sihao\makebox[149.3mm][s]{撰写过的研究成果，也不包括本人为获得其他学位而使用过的材料。与}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,78.1)
+      {\song\sihao\makebox[149.4mm][s]{我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,89.2)
+      {\song\sihao 说明并表示谢意。};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (107.6,102.9)
+      {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (106.6,117.5)
+      {\song\sihao 日\quad\quad 期：\neu@declarationsigndate};
 
-      \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.5)
-        {\hei\erhao 学位论文版权使用授权书};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,151.3)
-        {\song\sihao\makebox[139.7mm][s]{本学位论文作者和指导教师完全了解学校有关保留、使用学位论}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,162.3)
-        {\song\sihao\makebox[149.2mm][s]{文的规定：即学校有权保留并向国家有关部门或机构送交论文的复印}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,173.3)
-        {\song\sihao\makebox[149.6mm][s]{件和磁盘，允许论文被查阅和借阅。本人同意学校可以将学位论文的全}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,184.3)
-        {\song\sihao 部或部分内容编入有关数据库进行检索、交流。};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.5)
+      {\hei\erhao 学位论文版权使用授权书};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,151.3)
+      {\song\sihao\makebox[139.7mm][s]{本学位论文作者和指导教师完全了解学校有关保留、使用学位论}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,162.3)
+      {\song\sihao\makebox[149.2mm][s]{文的规定：即学校有权保留并向国家有关部门或机构送交论文的复印}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,173.3)
+      {\song\sihao\makebox[149.6mm][s]{件和磁盘，允许论文被查阅和借阅。本人同意学校可以将学位论文的全}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,184.3)
+      {\song\sihao 部或部分内容编入有关数据库进行检索、交流。};
 
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,206.3)
-        {\song\sihao 作者和导师同意网上交流的时间为作者获得学位后：};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,222.8)
-        {\song\sihao \neu@releasebox{半年}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (72.0,222.8)
-        {\song\sihao \neu@releasebox{一年}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (104.0,222.8)
-        {\song\sihao \neu@releasebox{一年半}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (136.0,222.8)
-        {\song\sihao \neu@releasebox{两年}};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,239.4)
-        {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,239.4)
-        {\song\sihao 导师签名：\neu@supervisorsignaturegraphic};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,250.4)
-        {\song\sihao 签字日期：\neu@declarationsigndate};
-      \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,250.4)
-        {\song\sihao 签字日期：\neu@declarationsigndate};
-    \end{scope}
-      \end{tikzpicture}%
-    }%
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,206.3)
+      {\song\sihao 作者和导师同意网上交流的时间为作者获得学位后：};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,222.8)
+      {\song\sihao \neu@releasebox{半年}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (72.0,222.8)
+      {\song\sihao \neu@releasebox{一年}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (104.0,222.8)
+      {\song\sihao \neu@releasebox{一年半}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (136.0,222.8)
+      {\song\sihao \neu@releasebox{两年}};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,239.4)
+      {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,239.4)
+      {\song\sihao 导师签名：\neu@supervisorsignaturegraphic};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,250.4)
+      {\song\sihao 签字日期：\neu@declarationsigndate};
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,250.4)
+      {\song\sihao 签字日期：\neu@declarationsigndate};
   }%
   \null
 }
