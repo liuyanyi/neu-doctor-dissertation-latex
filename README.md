@@ -2,23 +2,28 @@
 
 ## 构建
 
-推荐使用 XeLaTeX：
+推荐使用 XeLaTeX 编译：
 
-```powershell
+```bash
 latexmk -xelatex main.tex
 ```
 
-模板目标兼容 TeX Live 2023--2026，已在如下环境进行测试：
+### 兼容性
 
-- 本地环境
-  - [x] TeX Live 2023 (Windows 11)
-  - [x] TeX Live 2026 (Windows 11)
-- 在线环境
-  - [x] 本地部署版本 Overleaf (TeX Live 2025)
-  - [x] Overleaf 云上版本 (TeX Live 2024, 2025)
+模板目标兼容 TeX Live 2023–2026，已在以下环境测试通过：
+
+#### 本地环境
+
+- [x] TeX Live 2023 (Windows 11)
+- [x] TeX Live 2026 (Windows 11)
+
+#### 在线环境
+
+- [x] 本地部署版本 Overleaf (TeX Live 2025)
+- [x] Overleaf 云上版本 (TeX Live 2024, 2025)
 
 > [!NOTE]
-> Overleaf 上记得选择 XeLaTeX 编译器，而且测试来看，云上版本容易出现编译超时的情况，建议在本地环境编译，或使用 Overleaf 的本地部署版本。
+> Overleaf 上记得选择 XeLaTeX 编译器。云上版本容易出现编译超时的情况，建议在本地环境编译，或使用 Overleaf 的本地部署版本。
 
 项目内置了 vscode 的 LaTeX Workshop 插件配置，使用 latexmk 进行构建，有需要可以编辑 `.vscode/settings.json` 来调整构建方式。
 
@@ -103,7 +108,7 @@ cosupervisor-en = {},
 
 ### 正文结构
 
-`main.tex` 组织为：
+`main.tex` 的结构组织如下：
 
 ```latex
 \makeneucovers
@@ -121,11 +126,21 @@ cosupervisor-en = {},
 \begin{achievementscn}...\end{achievementscn}
 ```
 
-封面和题名页无页码；声明、摘要、目录使用罗马数字页码；正文从第 1 章开始使用阿拉伯数字页码并从 1 起编。模板按双面打印组织分页，封面、题名页、声明、摘要、目录和正文章首页会自动从奇数页开始，必要时插入无页眉页脚的空白背面页。
+#### 页码说明
+
+- 封面和题名页：无页码
+- 声明、摘要、目录：罗马数字页码
+- 正文：从第 1 章开始使用阿拉伯数字页码并从 1 起编
+
+模板按双面打印组织分页，封面、题名页、声明、摘要、目录和正文章首页会自动从奇数页开始，必要时插入无页眉页脚的空白背面页。
 
 ### 参考文献
 
-参考文献采用 GB/T 7714 顺序编码制，类文件默认使用项目内的 `gbt7714-unsrt.bst`。正文陈述处使用上标引用：
+参考文献采用 GB/T 7714 顺序编码制，样式文件默认使用项目内的 `gbt7714-unsrt.bst`。
+
+#### 引用方式
+
+正文陈述处使用上标引用：
 
 ```latex
 已有研究表明...\upcite{guo_2023_research}
@@ -136,6 +151,8 @@ cosupervisor-en = {},
 ```latex
 文献 \inlinecite{guo_2023_research} 详细讨论了这一问题。
 ```
+
+#### 参考文献环境
 
 参考文献部分统一放在 `referencescn` 环境内：
 
@@ -174,23 +191,28 @@ cosupervisor-en = {},
 
 ## 格式比较工具
 
-为了快速比较模板生成的 PDF 与学校提供的样例 PDF 之间的格式差异，项目在 `dev/` 目录下提供了一个基于 Python 的 PDF 比较工具 `compare_pdf_visual.py`，使用这个工具可以比较两份 PDF 文件的视觉差异，并生成一个差异图像，帮助开发者快速定位格式上的不一致之处。
+为了快速比较模板生成的 PDF 与学校提供的样例 PDF 之间的格式差异，项目在 `dev/` 目录下提供了基于 Python 的 PDF 比较工具 `compare_pdf_visual.py`。该工具用于开发过程中，帮助确保模板生成的 PDF 与学校提供的样例 PDF 在格式上保持一致。
 
-这个工具用于开发过程中，帮助确保模板生成的 PDF 与学校提供的样例 PDF 在格式上保持一致。使用方法如下：
+### 使用方法
 
 ```bash
 uv run dev\compare_pdf_visual.py .\template_reference\word_page\cover_page.pdf main.pdf --word-page 1 --latex-page 1 --dpi 300 --output-dir tmp\pdf-diff --prefix cover_page --save-rendered
 ```
 
-其中：
+### 参数说明
 
-- `--word-page` 和 `--latex-page` 分别指定要比较的 Word PDF 页码和 LaTeX PDF 页码。
-- `--dpi` 指定生成差异图像的分辨率。
-- `--output-dir` 指定差异图像的输出目录。
-- `--prefix` 指定差异图像文件的前缀。
-- `--save-rendered` 选项会保存渲染后的 Word PDF 和 LaTeX PDF 图像，便于进一步分析。
+| 参数 | 说明 |
+| :--- | :--- |
+| `--word-page` | Word PDF 的页码 |
+| `--latex-page` | LaTeX PDF 的页码 |
+| `--dpi` | 生成差异图像的分辨率 |
+| `--output-dir` | 差异图像的输出目录 |
+| `--prefix` | 差异图像文件的前缀 |
+| `--save-rendered` | 保存渲染后的图像，便于进一步分析 |
 
-开发过程中的比较文件保留了一份在 `template_reference/compare_result` 目录下，开发中主要比较了封面页、首页、英文首页和声明页。
+### 开发中的比较命令
+
+开发过程中的比较文件保留在 `template_reference/compare_result` 目录下，主要比较了封面页、首页、英文首页和声明页：
 
 ```bash
 uv run dev\compare_pdf_visual.py .\template_reference\word_page\cover_page.pdf main.pdf --word-page 1 --latex-page 1 --dpi 300 --output-dir tmp\pdf-diff --prefix cover_page --save-rendered
@@ -201,14 +223,16 @@ uv run dev\compare_pdf_visual.py .\template_reference\word_page\declear.pdf main
 
 ## 模板构建来源和参考信息
 
-格式相关参考由见 [东北大学研究生院-下载专区-申请博士学位相关表格材料（2026年版）](http://www.graduate.neu.edu.cn/_upload/article/files/13/40/aaeb638d41dc8f73ad0ac07c1cce/5884da82-cb8d-4323-96d9-9ab4b6f92932.zip) ，模板相关的文件也包含在 `template_reference/` 目录下。
+格式参考自 [东北大学研究生院-下载专区-申请博士学位相关表格材料（2026年版）](http://www.graduate.neu.edu.cn/_upload/article/files/13/40/aaeb638d41dc8f73ad0ac07c1cce/5884da82-cb8d-4323-96d9-9ab4b6f92932.zip)，模板相关的文件也包含在 `template_reference/` 目录下。
 
 > [!WARNING]
-> 但请注意，学校发布的模板中，后续的样例也有和格式不符的情况，因此还参考了往届的论文来做参考。
-> 为了视觉效果，有些内容也是经过调整的，可能和学校提供的样例略有差异，但整体风格和格式要求是保持一致的。
+> 学校发布的模板中，部分样例与格式要求不符，因此参考了往届论文。为了视觉效果，部分内容经过调整，可能和学校提供的样例略有差异，但整体风格和格式要求保持一致。
 
-模板源码以 [Gitee NEUCloudLab/NEU论文Latex模板](https://gitee.com/NEUCloudLab/NEU-dissertation-template) 的基础上重构，感谢原作者的贡献。部分内容参考了 [Github sci-m-wang/NEU-Thesis](https://github.com/sci-m-wang/NEU-Thesis)。
+### 参考项目
+
+- [Gitee NEUCloudLab/NEU论文Latex模板](https://gitee.com/NEUCloudLab/NEU-dissertation-template) — 模板源码重构基础
+- [GitHub sci-m-wang/NEU-Thesis](https://github.com/sci-m-wang/NEU-Thesis) — 部分内容参考
 
 ## License
 
-GPL-2.0 License，详见 `LICENSE` 文件。
+GPL-2.0 License，详见 [LICENSE](LICENSE) 文件。
