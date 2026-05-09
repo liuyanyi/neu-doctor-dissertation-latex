@@ -1,4 +1,5 @@
 % 东北大学博士学位论文 LaTeX 模板（2026 版）
+\DocumentMetadata{pdfversion=1.7} 
 \documentclass[blindreview=false]{neudissertation}
 
 \neudisetup{
@@ -23,12 +24,15 @@
   cosupervisor-title-cn = {},
   cosupervisor-affiliation-cn = {},
   cosupervisor-en = {},
-  submit-date = {2016年4月},
-  defense-date = {2016年6月},
-  degree-date = {2016年7月},
+  submit-year = {2016},
+  submit-month = {4},
+  defense-year = {2016},
+  defense-month = {6},
+  degree-year = {2016},
+  degree-month = {7},
   defense-chair = {王某某},
-  cover-date-cn = {2016年7月},
-  cover-date-en = {January 2016},
+  cover-year = {2016},
+  cover-month = {7},
   online-release = {两年},
   signature-date = {},
   author-signature = {Figures/signature.jpeg},
@@ -74,15 +78,16 @@
 
 \backmatter
 
-\addcontentsline{toc}{chapter}{参考文献}
-\nocite{guo_2023_research}
-\bibliography{references}
+\begin{referencescn}
+  \bibliography{references}
+\end{referencescn}
 
-\chapter{攻读博士学位期间取得的学术成果}
-\begin{enumerate}
-  \item 第一作者. 示例论文题名[J]. 示例期刊，20xx，1（1）：1-10. （检索情况）（对应论文第一章）
-  \item 第一排序. 示例专利题名：中国，XXXXXXXXX[P]. 20xx-xx-xx. （对应论文第二章）
-\end{enumerate}
+\begin{achievementscn}
+  \begin{enumerate}
+    \item 第一作者. 示例论文题名[J]. 示例期刊，20xx，1（1）：1-10. （检索情况）（对应论文第一章）
+    \item 第一排序. 示例专利题名：中国，XXXXXXXXX[P]. 20xx-xx-xx. （对应论文第二章）
+  \end{enumerate}
+\end{achievementscn}
 
 \input{thanks}
 
