@@ -13,11 +13,14 @@ latexmk -xelatex main.tex
 模板目标兼容 TeX Live 2023--2026，已在如下环境进行测试：
 
 - 本地环境
-  [] TeX Live 2023 (Windows 11)
-  [] TeX Live 2026 (Windows 11)
+  - [x] TeX Live 2023 (Windows 11)
+  - [x] TeX Live 2026 (Windows 11)
 - 在线环境
-  [] 本地部署版本 Overleaf (TeX Live 2025)
-  [] Overleaf 云上版本 (TeX Live 20**)
+  - [x] 本地部署版本 Overleaf (TeX Live 2025)
+  - [x] Overleaf 云上版本 (TeX Live 2024, 2025)
+
+> [!NOTE]
+> Overleaf 上记得选择 XeLaTeX 编译器，而且测试来看，云上版本容易出现编译超时的情况，建议在本地环境编译，或使用 Overleaf 的本地部署版本。
 
 项目内置了 vscode 的 LaTeX Workshop 插件配置，使用 latexmk 进行构建，有需要可以编辑 `.vscode/settings.json` 来调整构建方式。
 

@@ -37,11 +37,37 @@
 \RequirePackage{caption}
 \RequirePackage{xstring}
 \RequirePackage[sort&compress]{gbt7714}
-\RequirePackage[hidelinks,hypertexnames=false]{hyperref}
+\RequirePackage[hidelinks,hypertexnames=false,bookmarksnumbered=true]{hyperref}
 \usetikzlibrary{calc}
 \pdfstringdefDisableCommands{%
   \def\quad{ }%
 }
+
+% PDF bookmark formatting: chapters show "第 1 章 xxx", sections stay as "1.1 xxx"
+\makeatletter
+\def\Hy@numberline#1{%
+  \@ifundefined{Hy@level}{%
+    #1\quad
+  }{%
+    \ifnum\Hy@level=0 %
+      第~#1~章\quad
+    \else
+      #1\quad
+    \fi
+  }%
+}
+\makeatother
+
+% Add "目 录" bookmark for PDF outline
+\makeatletter
+\let\neu@origtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \cleardoublepage
+  \phantomsection
+  \pdfbookmark[0]{目\quad 录}{toc}%
+  \neu@origtableofcontents
+}
+\makeatother
 
 % Base page layout matched to the Word template.
 \geometry{
