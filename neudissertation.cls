@@ -227,16 +227,44 @@
 \newcommand{\neu@entry}[2]{\underline{\makebox[#1][c]{#2}}}
 \newcommand{\neu@spreadbox}[2]{{\hbadness=10000\makebox[#1][s]{#2}}}
 \newcommand{\neu@coverlabel}[1]{\neu@spreadbox{42mm}{#1}}
-\newcommand{\neu@coverlabelbox}[1]{\neu@spreadbox{37mm}{#1}}
+\newcommand{\neu@coverleftfivecharlabel}[5]{%
+  \makebox[34.8mm][l]{#1\hspace{2.50mm}#2\hspace{2.50mm}#3\hspace{2.50mm}#4\hspace{2.50mm}#5}%
+}
+\newcommand{\neu@coverrightfivecharlabel}[5]{%
+  \makebox[35.8mm][l]{#1\hspace{2.80mm}#2\hspace{2.80mm}#3\hspace{2.80mm}#4\hspace{2.80mm}#5}%
+}
+\newcommand{\neu@coverrightdatelabel}[7]{%
+  #1\hspace{0.22mm}#2\hspace{0.22mm}#3\hspace{0.22mm}#4\hspace{0.22mm}#5\hspace{0.22mm}#6\hspace{0.22mm}#7%
+}
+\newcommand{\neu@coverleftlabelbox}[1]{%
+  \ifstrequal{#1}{作者姓名：}{\neu@coverleftfivecharlabel{作}{者}{姓}{名}{：}}{%
+    \ifstrequal{#1}{作者学号：}{\neu@coverleftfivecharlabel{作}{者}{学}{号}{：}}{%
+      \ifstrequal{#1}{指导教师：}{\neu@coverleftfivecharlabel{指}{导}{教}{师}{：}}{%
+        \makebox[34.8mm][l]{#1}%
+      }}}%
+}
+\newcommand{\neu@coverrightentry}[2]{%
+  \ifstrequal{#1}{学科类别：}{%
+    \neu@coverrightfivecharlabel{学}{科}{类}{别}{：}\hspace{2.0mm}#2%
+  }{%
+    \ifstrequal{#1}{答辩委员会主席：}{%
+      \makebox[37.55mm][l]{\scalebox{0.95}[1]{#1}}\hspace{0.3mm}#2%
+    }{%
+      \ifstrequal{#1}{论文答辩日期：}{%
+        \neu@coverrightdatelabel{论}{文}{答}{辩}{日}{期}{：}\hspace{3.5mm}#2%
+      }{%
+        #1\hspace{1.7mm}#2%
+      }}}%
+}
 \newcommand{\neu@coverleftline}[3]{%
-  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (32.2,#1)
-    {\song\sihao \neu@coverlabelbox{#2}\hspace{2.1mm}#3};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (31.87,#1)
+  {\song\sihao \neu@coverleftlabelbox{#2}\hspace{2.0mm}#3};
 }
 \newcommand{\neu@coverpairline}[5]{%
-  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (32.2,#1)
-    {\song\sihao \neu@coverlabelbox{#2}\hspace{2.1mm}#3};
-  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (96.8,#1)
-    {\song\sihao \neu@coverlabelbox{#4}\hspace{2.1mm}#5};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (31.87,#1)
+  {\song\sihao \neu@coverleftlabelbox{#2}\hspace{2.0mm}#3};
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (96.47,#1)
+  {\song\sihao \neu@coverrightentry{#4}{#5}};
 }
 \newcommand{\neu@blankpage}{%
   \clearpage
@@ -308,30 +336,30 @@
     name = {第~,~章},
     number = \arabic{chapter},
     aftername = \quad
-  },
+   },
   section = {
     format = \sanhao\hei\raggedright,
     number = \thesection
-  },
+   },
   subsection = {
-    format = \sihao\hei\raggedright,
-    number = \thesubsection
-  },
+      format = \sihao\hei\raggedright,
+      number = \thesubsection
+    },
   subsubsection = {
-    format = \xiaosi\hei\raggedright,
-    number = \thesubsubsection
-  }
+      format = \xiaosi\hei\raggedright,
+      number = \thesubsubsection
+    }
 }
 \titleformat{\chapter}[block]
-  {\centering\erhao\hei}
-  {第~\thechapter~章}
-  {1em}
-  {}
+{\centering\erhao\hei}
+{第~\thechapter~章}
+{1em}
+{}
 \titleformat{name=\chapter,numberless}[block]
-  {\centering\erhao\hei}
-  {}
-  {0pt}
-  {}
+{\centering\erhao\hei}
+{}
+{0pt}
+{}
 \titlespacing*{\chapter}{0pt}{0pt}{23pt}
 \titleformat{\section}{\sanhao\hei}{\thesection}{0.75em}{}
 \titlespacing*{\section}{0pt}{20pt}{13pt}
@@ -349,25 +377,25 @@
 \renewcommand{\appendixname}{附录}
 
 \titlecontents{chapter}
-  [0em]{\hei}
-  {\thecontentslabel\quad}
-  {}
-  {\titlerule*[0.5pc]{.}\contentspage}
+[0em]{\hei}
+{\thecontentslabel\quad}
+{}
+{\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{section}
-  [2em]{}
-  {\thecontentslabel\quad}
-  {}
-  {\titlerule*[0.5pc]{.}\contentspage}
+[2em]{}
+{\thecontentslabel\quad}
+{}
+{\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{subsection}
-  [4em]{}
-  {\thecontentslabel\quad}
-  {}
-  {\titlerule*[0.5pc]{.}\contentspage}
+[4em]{}
+{\thecontentslabel\quad}
+{}
+{\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{subsubsection}
-  [6em]{}
-  {\thecontentslabel\quad}
-  {}
-  {\titlerule*[0.5pc]{.}\contentspage}
+[6em]{}
+{\thecontentslabel\quad}
+{}
+{\titlerule*[0.5pc]{.}\contentspage}
 
 % Matter transitions.
 \renewcommand{\frontmatter}{%
@@ -419,26 +447,26 @@
   \null
   \neu@pagecoordinatepicture{%
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,28.4)
-      {\song\sihao 分类号};
+    {\song\sihao 分类号};
     \draw[line width=0.4pt,line cap=butt] (44.9,33.5) -- (89.4,33.5);
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (96.9,28.4)
-      {\song\sihao 密级};
+    {\song\sihao 密级};
     \draw[line width=0.4pt,line cap=butt] (109.0,33.5) -- (133.8,33.5);
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.1,40.4)
-      {\song\sihao UDC};
+    {\song\sihao UDC};
     \draw[line width=0.4pt,line cap=butt] (42.8,44.5) -- (89.8,44.5);
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,54.9)
-      {\song\erhao \neu@spreadbox{54.3mm}{学位论文}};
-    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.2,72.0)
-      {\hei\xiaoer \neu@titlecn};
+    {\song\erhao \neu@spreadbox{54.3mm}{学位论文}};
+    \node[anchor=north,inner sep=0pt,outer sep=0pt] at (104.96,71.9)
+    {\hei\xiaoer \neu@titlecn};
 
     \neu@coverleftline{100.2}{作者姓名：}{\neu@authorcn}
     \neu@coverleftline{111.3}{作者学号：}{\neu@studentid}
     \ifdefempty{\neu@cosupervisorcnraw}{%
       \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn}
       \node[anchor=north,inner sep=0pt,outer sep=0pt] at (103.3,133.2)
-        {\song\sihao \neu@supervisoraffiliationcn};
+      {\song\sihao \neu@supervisoraffiliationcn};
     }{%
       \neu@coverleftline{122.2}{指导教师：}{\neu@supervisorcn\quad \neu@supervisortitlecn\qquad \neu@supervisoraffiliationcn}
       \neu@coverleftline{133.2}{}{\neu@cosupervisorcn\quad \neu@cosupervisortitlecn\qquad \neu@cosupervisoraffiliationcn}
@@ -449,9 +477,9 @@
     \neu@coverpairline{177.2}{学位授予日期：}{\neu@degreedate}{答辩委员会主席：}{\neu@defensechair}
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,221.3)
-      {\song\sihao \neu@spreadbox{34.7mm}{东北大学}};
+    {\song\sihao \neu@spreadbox{34.7mm}{东北大学}};
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.1,232.4)
-      {\song\sihao \neu@coverdatecn};
+    {\song\sihao \neu@coverdatecn};
   }%
   \null
   \cleardoublepage
@@ -459,26 +487,26 @@
   \null
   \neu@pagecoordinatepicture{%
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (82.0,29.4)
-      {\sihao\bfseries A Dissertation in \neu@majoren};
+    {\sihao\bfseries A Dissertation in \neu@majoren};
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,55.9)
-      {\begin{minipage}{160mm}
+    {\begin{minipage}{160mm}
         \centering\erhao\bfseries\linespread{1.2}\selectfont \neu@titleen
       \end{minipage}};
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,95.3)
-      {\sihao by \neu@authoren};
+    {\sihao by \neu@authoren};
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,122.8)
-      {\sihao Supervisor: \neu@supervisoren};
+    {\sihao Supervisor: \neu@supervisoren};
     \ifdefempty{\neu@cosupervisorenraw}{}{%
       \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.4)
-        {\sihao Co-supervisor: \neu@cosupervisoren};
+      {\sihao Co-supervisor: \neu@cosupervisoren};
     }
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,232.7)
-      {\sanhao\bfseries Northeastern University};
+    {\sanhao\bfseries Northeastern University};
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,243.8)
-      {\sanhao\bfseries \neu@coverdateen};
+    {\sanhao\bfseries \neu@coverdateen};
   }%
   \null
   \cleardoublepage
@@ -512,51 +540,51 @@
   \null
   \neu@pagecoordinatepicture{%
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,27.3)
-      {\hei\erhao 独创性声明};
+    {\hei\erhao 独创性声明};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,45.1)
-      {\song\sihao\makebox[139.7mm][s]{本人声明，所呈交的学位论文是在导师的指导下完成的。论文中取}};
+    {\song\sihao\makebox[139.7mm][s]{本人声明，所呈交的学位论文是在导师的指导下完成的。论文中取}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,56.1)
-      {\song\sihao\makebox[149.5mm][s]{得的研究成果除加以标注和致谢的地方外，不包含其他人已经发表或}};
+    {\song\sihao\makebox[149.5mm][s]{得的研究成果除加以标注和致谢的地方外，不包含其他人已经发表或}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,67.1)
-      {\song\sihao\makebox[149.3mm][s]{撰写过的研究成果，也不包括本人为获得其他学位而使用过的材料。与}};
+    {\song\sihao\makebox[149.3mm][s]{撰写过的研究成果，也不包括本人为获得其他学位而使用过的材料。与}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,78.1)
-      {\song\sihao\makebox[149.4mm][s]{我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的}};
+    {\song\sihao\makebox[149.4mm][s]{我一同工作的同志对本研究所做的任何贡献均已在论文中作了明确的}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,89.2)
-      {\song\sihao 说明并表示谢意。};
+    {\song\sihao 说明并表示谢意。};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (107.6,102.9)
-      {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
+    {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (106.6,117.5)
-      {\song\sihao 日\quad\quad 期：\neu@declarationsigndate};
+    {\song\sihao 日\quad\quad 期：\neu@declarationsigndate};
 
     \node[anchor=north,inner sep=0pt,outer sep=0pt] at (105.0,133.5)
-      {\hei\erhao 学位论文版权使用授权书};
+    {\hei\erhao 学位论文版权使用授权书};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (40.0,151.3)
-      {\song\sihao\makebox[139.7mm][s]{本学位论文作者和指导教师完全了解学校有关保留、使用学位论}};
+    {\song\sihao\makebox[139.7mm][s]{本学位论文作者和指导教师完全了解学校有关保留、使用学位论}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,162.3)
-      {\song\sihao\makebox[149.2mm][s]{文的规定：即学校有权保留并向国家有关部门或机构送交论文的复印}};
+    {\song\sihao\makebox[149.2mm][s]{文的规定：即学校有权保留并向国家有关部门或机构送交论文的复印}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,173.3)
-      {\song\sihao\makebox[149.6mm][s]{件和磁盘，允许论文被查阅和借阅。本人同意学校可以将学位论文的全}};
+    {\song\sihao\makebox[149.6mm][s]{件和磁盘，允许论文被查阅和借阅。本人同意学校可以将学位论文的全}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.2,184.3)
-      {\song\sihao 部或部分内容编入有关数据库进行检索、交流。};
+    {\song\sihao 部或部分内容编入有关数据库进行检索、交流。};
 
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,206.3)
-      {\song\sihao 作者和导师同意网上交流的时间为作者获得学位后：};
+    {\song\sihao 作者和导师同意网上交流的时间为作者获得学位后：};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (39.9,222.8)
-      {\song\sihao \neu@releasebox{半年}};
+    {\song\sihao \neu@releasebox{半年}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (72.0,222.8)
-      {\song\sihao \neu@releasebox{一年}};
+    {\song\sihao \neu@releasebox{一年}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (104.0,222.8)
-      {\song\sihao \neu@releasebox{一年半}};
+    {\song\sihao \neu@releasebox{一年半}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (136.0,222.8)
-      {\song\sihao \neu@releasebox{两年}};
+    {\song\sihao \neu@releasebox{两年}};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,239.4)
-      {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
+    {\song\sihao 学位论文作者签名：\neu@authorsignaturegraphic};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,239.4)
-      {\song\sihao 导师签名：\neu@supervisorsignaturegraphic};
+    {\song\sihao 导师签名：\neu@supervisorsignaturegraphic};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (30.0,250.4)
-      {\song\sihao 签字日期：\neu@declarationsigndate};
+    {\song\sihao 签字日期：\neu@declarationsigndate};
     \node[anchor=north west,inner sep=0pt,outer sep=0pt] at (108.0,250.4)
-      {\song\sihao 签字日期：\neu@declarationsigndate};
+    {\song\sihao 签字日期：\neu@declarationsigndate};
   }%
   \null
 }
